@@ -3,7 +3,7 @@ layout: post
 title: "using phantomjs"
 description: "phantomjs"
 category:
-tags: []
+tags: [javascript]
 ---
 ####1.神马是phantomjs？
 Phantom JS是一个服务器端的JavaScript API的WebKit。其支持各种Web标准:DOM处理、CSS选择器、JSON、Canvas和SVG - <a target="_blank" href="http://phantomjs.org">read more</a>
