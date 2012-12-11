@@ -161,34 +161,34 @@ a.自动截图
     };
     draw();   
 上面是一个简单的截图的例子，但是有的时候可能行不通，例如页面有延迟加载，这个时候就使用需要evaluate等接口
-    function draw() {
-        var page = new WebPage();    
-        page.viewportSize = { width: 1024};
-        page.open('http://www.exaple.com/page.php'), function(){ 
-            var imgname = './img/test.img.png';
-            var timer = setInterval(function() {
-                var fullyLoaded = age.evaluate(function(s) {
-                    return document.querySelector(s) ? 1 : 0;
-                }, 'div#lazyload');
-                if(!fullyLoaded)return;
-                clearInterval(timer);
-                page.render(imgname);
-                page.release();
-                phantom.exit();
-            }, 1000);
-        });
-    };
-    draw();  
+        function draw() {
+            var page = new WebPage();    
+            page.viewportSize = { width: 1024};
+            page.open('http://www.exaple.com/page.php'), function(){ 
+                var imgname = './img/test.img.png';
+                var timer = setInterval(function() {
+                    var fullyLoaded = age.evaluate(function(s) {
+                        return document.querySelector(s) ? 1 : 0;
+                    }, 'div#lazyload');
+                    if(!fullyLoaded)return;
+                    clearInterval(timer);
+                    page.render(imgname);
+                    page.release();
+                    phantom.exit();
+                }, 1000);
+            });
+        };
+        draw();  
 b.模拟测速
 将phantomjs部署在不同网络的机器上【或者通过phantomjs --proxy代理模拟】，访问同一个url，获取加载时间   
-    // total就是加载总时间
-    var t = 0, total;
-    page.onNavigationRequested = function() {
-        t = +(new Date());
-    }    
-    page.onLoadFinished = function() {
-        total = +(new Date()) - t;
-    }   
+        // total就是加载总时间
+        var t = 0, total;
+        page.onNavigationRequested = function() {
+            t = +(new Date());
+        }    
+        page.onLoadFinished = function() {
+            total = +(new Date()) - t;
+        }   
 page object的onResourceRequested接口可以针对单个资源，因此可以用来分析页面性能的瓶颈是出在哪一个文件资源的加载上
 c.自动化测试 
 类似selenium，可以用脚本驱动phantomjs对页面进行点击、滚动、按键等各种操作，并且可以通过onError捕获错误信息，还能响应alert、confirm、prompt等
